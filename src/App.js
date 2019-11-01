@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineSetting } from "react-icons/ai";
 import './App.css';
+import Settings from './components/Settings';
 
 const buttons = [
   { id: 'rating', label: 'Rating' },
@@ -18,53 +19,60 @@ const buttons = [
 function App() {
   const [key, setKey] = useState('address');
   const [extended, setExtended] = useState(false);
-
-  // const testStorage = () => {
-  //   try {
-  //     console.log('browser', global);
-  //   } catch(e) {
-  //     console.warn('no browser support', e);
-  //   }
-  // }
+  const [showSettings, setShowSettings] = useState(false);
     
+  const settingsContainer = useRef(null);
+  const handleClose = () => setShowSettings(false);
 
   return (
-    <Tab.Container id="tabs-buttons" defaultActiveKey={key}>
+    <Tab.Container id="tabs-buttons" defaultActiveKey={key} >
       <Row>
         <Col xs='auto' sm={12} md={8} lg={7}>
-          <Nav variant={!!extended ? 'tabs' : 'pills'} active={key}>
-            {buttons.map(({ id, label, disabled }) =>
-              <Nav.Item key={id}>
-                <Nav.Link
-                  active={key === id}
-                  eventKey={id}
-                  disabled={disabled}
-                  onSelect={k => {
-                    setKey(k);
-                    setExtended(true);
-                    // testStorage();
-                  }}
-                >{label}</Nav.Link>
-              </Nav.Item>
-            )}
-          </Nav>
-          {!!extended &&
-            <section className="panel">
-              <Tab.Content>
-                {buttons.filter(({disabled}) => !disabled ).map(({ id, label }) =>
-                  <Tab.Pane key={id} eventKey={id}>
-                    <Row className="panel-heading">
-                      <h2 className="col">{label}</h2>
-                      <span className="col flex-grow-0">
-                        <Button variant="link" onClick={e => setExtended(false)}><AiOutlineClose /></Button>
-                      </span>
-                    </Row>
-                    <p>{`content for ${id} will be soon`}</p>
-                  </Tab.Pane>
-                )}
-              </Tab.Content>
-            </section>
-          }
+          <div ref={settingsContainer}>
+            <Nav variant={!!extended ? 'tabs' : 'pills'} active={key}>
+              {buttons.map(({ id, label, disabled }) =>
+                <Nav.Item key={id}>
+                  <Nav.Link
+                    active={key === id}
+                    eventKey={id}
+                    disabled={disabled}
+                    onSelect={k => {
+                      setKey(k);
+                      setExtended(true);
+                      // testStorage();
+                    }}
+                  >{label}</Nav.Link>
+                </Nav.Item>
+              )}
+            </Nav>
+            {!!extended &&
+              <>
+                <section className="panel section-tab-panel" style={{minHeight: '400px'}}>
+                  <Tab.Content>
+                    {buttons.filter(({disabled}) => !disabled ).map(({ id, label }) =>
+                      <Tab.Pane key={id} eventKey={id}>
+                        <Row className="panel-heading">
+                          <h2 className="col">{label}</h2>
+                          <span className="col flex-grow-0">
+                            <Button variant="link" onClick={() => setShowSettings(true)}><AiOutlineSetting /></Button>
+                          </span>
+                          <span className="col flex-grow-0">
+                            <Button variant="link" onClick={() => setExtended(false)}><AiOutlineClose /></Button>
+                          </span>
+                        </Row>
+                        <p>{`content for ${id} will be soon`}</p>
+                      </Tab.Pane>
+                    )}
+                  </Tab.Content>
+                </section>
+                <Settings
+                  show={showSettings}
+                  close={handleClose}
+                  container={settingsContainer.current}
+                />
+              </>
+            }
+          </div>
         </Col>
       </Row>
     </Tab.Container>
