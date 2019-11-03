@@ -5,3 +5,8 @@
 section {
   margin: 20px;
 }
+
+.modal[role='dialog'] {
+  position: absolute;
+  margin-left: 15px;
+}

@@ -6,7 +6,7 @@ import './Settings.css';
 
 const Settings = ({show, close, ...props}) => {
     return (
-        <Modal show={show} onHide={close} {...props} dialogClassName="settings-modal">
+        <Modal show={show} onHide={close} {...props} dialogClassName="settings-modal" backdrop={false}>
             <Modal.Header closeButton>
                 <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
