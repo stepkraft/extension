@@ -1,5 +1,9 @@
-.App {
-  text-align: center;
+.ext-container {
+  position: absolute;
+  min-width: 600px;
+  margin: 25px;
+  padding-right: 10px;
+  box-sizing: border-box;
 }
 
 section {
