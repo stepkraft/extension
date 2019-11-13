@@ -1,59 +1,45 @@
 import React from 'react';
-import { bool, func } from 'prop-types';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form'
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import './Settings.css';
+import { func } from 'prop-types';
+import { Form } from 'semantic-ui-react'
 
-const Settings = ({show, close, save, ...props}) => {
+const Settings = ({save, ...props}) => {
     return (
-        <Modal show={show} onHide={close} {...props} dialogClassName="settings-modal" backdrop={false}>
-            <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form>
-                    <Form.Group as={Row} controlId="formPlaintextEmail">
-                        <Form.Label column sm="4">vertical position</Form.Label>
-                        <Col sm="8">
-                            <ToggleButtonGroup
-                                type="radio"
-                                name="verticalPosition"
-                                value={props.data.verticalPosition}
-                                onChange={(ev) => save({verticalPosition: ev})}
-                            >
-                                <ToggleButton value="top">top</ToggleButton>
-                                <ToggleButton value="bottom">bottom</ToggleButton>
-                            </ToggleButtonGroup>
-                        </Col>
-                    </Form.Group>
-
-                    <Form.Group as={Row} controlId="formPlaintextPassword">
-                        <Form.Label column sm="4">horizontal position</Form.Label>
-                        <Col sm="8">
-                            <ToggleButtonGroup
-                                type="radio"
-                                name="horizontalPosition"
-                                value={props.data.horizontalPosition}
-                                onChange={(ev) => save({horizontalPosition: ev})}
-                            >
-                                <ToggleButton value="left">left</ToggleButton>
-                                <ToggleButton value="right">right</ToggleButton>
-                            </ToggleButtonGroup>
-                        </Col>
-                    </Form.Group>
-                </Form>
-            </Modal.Body>
-        </Modal>
+        <Form>
+            <Form.Group inline>
+                <label>vertical position</label>
+                <Form.Radio
+                    label='top'
+                    value='top'
+                    checked={props.data.verticalPosition === 'top'}
+                    onChange={(_, { value }) => save({verticalPosition: value})}
+                />
+                <Form.Radio
+                    label='bottom'
+                    value='bottom'
+                    checked={props.data.verticalPosition === 'bottom'}
+                    onChange={(_, { value }) => save({verticalPosition: value})}
+                />
+            </Form.Group>
+            <Form.Group inline>
+                <label>horizontal position</label>
+                <Form.Radio
+                    label='left'
+                    value='left'
+                    checked={props.data.horizontalPosition === 'left'}
+                    onChange={(_, { value }) => save({horizontalPosition: value})}
+                />
+                <Form.Radio
+                    label='right'
+                    value='right'
+                    checked={props.data.horizontalPosition === 'right'}
+                    onChange={(_, { value }) => save({horizontalPosition: value})}
+                />
+            </Form.Group>
+        </Form>
     );
 }
 
 Settings.propTypes = {
-    show: bool.isRequired,
-    close: func.isRequired,
     save: func.isRequired,
 };
 

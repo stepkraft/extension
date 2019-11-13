@@ -1,34 +1,38 @@
-import React, { useState, useRef } from 'react';
-import Tab from 'react-bootstrap/Tab';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
-import { AiOutlineClose, AiOutlineSetting } from "react-icons/ai";
+import React, { useState } from 'react';
+import { Button, Icon, Modal, Grid, Menu } from 'semantic-ui-react';
 import './App.css';
 import Settings from './components/Settings';
+import { PopupContent, NoContentAvailable } from './components/PopupContent';
 import { useSettinngsStateWithLocalStorage } from './services';
+import { SiteAddressContent, BonusesContent } from './components/TabsContents';
 
 const buttons = [
-  { id: 'rating', label: 'Rating' },
-  { id: 'address', label: 'www address' },
-  { id: 'bonuses', label: 'Bonuses' },
-  { id: 'feedbacks', label: 'Feedbacks', disabled: true },
-  { id: 'prices', label: 'Prices', disabled: true },
+  { id: 'rating', label: 'Rating', icon: { name: 'star outline'}, disabled: true },
+  { id: 'address', label: 'WWW address', icon: { name: 'circle outline', color: 'yellow' }, content: <SiteAddressContent /> },
+  { id: 'bonuses', label: 'Bonuses', icon: { name: 'money bill alternate outline', color: 'green'}, content: <BonusesContent /> },
+  { id: 'feedbacks', label: 'Feedbacks', icon: { name: 'comment outline'}, disabled: true },
+  { id: 'prices', label: 'Prices', icon: { name: 'money'}, disabled: true },
 ];
 
 function App() {
   const [key, setKey] = useState('address');
-  const [extended, setExtended] = useState(false);
+  const [detailsOpened, showDetails] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [extSettings, setExtSettings] = useSettinngsStateWithLocalStorage();
     
-  const settingsContainer = useRef(null);
   const handleClose = () => setShowSettings(false);
   const saveExtSettings = (obj) => setExtSettings({
     ...extSettings,
     ...obj,
   });
+  const showModal = (buttonId) => {
+    showDetails(true);
+    setKey(buttonId);
+  }
+
+  const handleItemClick = (_, { name }) => {
+    setKey(name);
+  };
 
 
   return (
@@ -36,59 +40,54 @@ function App() {
       ...(extSettings.verticalPosition === 'top' ? {top: 0} : {bottom: 0}),
       ...(extSettings.horizontalPosition === 'left' ? {left: 0} : {right: 0}),      
     }}>
-      <Tab.Container id="tabs-buttons" defaultActiveKey={key}>
-        <Row>
-          <Col xs='auto' sm={12}>
-            <div ref={settingsContainer}>
-              <Nav variant={!!extended ? 'tabs' : 'pills'} active={key}>
-                {buttons.map(({ id, label, disabled }) =>
-                  <Nav.Item key={id}>
-                    <Nav.Link
-                      active={key === id}
-                      eventKey={id}
-                      disabled={disabled}
-                      onSelect={k => {
-                        setKey(k);
-                        setExtended(true);
-                        // testStorage();
-                      }}
-                    >{label}</Nav.Link>
-                  </Nav.Item>
-                )}
-              </Nav>
-              {!!extended &&
-                <>
-                  <section className="panel section-tab-panel" style={{minHeight: '400px'}}>
-                    <Tab.Content>
-                      {buttons.filter(({disabled}) => !disabled ).map(({ id, label }) =>
-                        <Tab.Pane key={id} eventKey={id}>
-                          <Row className="panel-heading">
-                            <h2 className="col">{label}</h2>
-                            <span className="col flex-grow-0">
-                              <Button variant="link" onClick={() => setShowSettings(true)}><AiOutlineSetting /></Button>
-                            </span>
-                            <span className="col flex-grow-0">
-                              <Button variant="link" onClick={() => setExtended(false)}><AiOutlineClose /></Button>
-                            </span>
-                          </Row>
-                          <p>{`content for ${id} will be soon`}</p>
-                        </Tab.Pane>
-                      )}
-                    </Tab.Content>
-                  </section>
-                  <Settings
-                    show={showSettings}
-                    close={handleClose}
-                    container={settingsContainer.current}
-                    data={extSettings}
-                    save={saveExtSettings}
-                  />
-                </>
-              }
+      <Button.Group>
+        {buttons/*.filter(({disabled}) => !disabled)*/.map(({ id, label, icon, disabled }) =>
+          <Button key={id} size='big' disabled={disabled} basic onClick={() => showModal(id)}>
+            <div className='ext-button'>
+              {icon && <Icon color={icon.color || 'grey'} name={icon.name} />}
+              {label && <span>{label}</span>}
             </div>
-          </Col>
-        </Row>
-      </Tab.Container>
+          </Button>
+        )}
+      </Button.Group>
+
+      <Modal open={detailsOpened} onClose={() => showDetails(false)}>
+        <Grid>
+          <Grid.Column width={4}>
+            <Menu vertical tabular>
+              {buttons.map(({ id, label, disabled }) => <Menu.Item
+                key={id}
+                name={id}
+                content={label}
+                disabled={disabled}
+                active={key === id}
+                onClick={handleItemClick}
+              />)}
+            </Menu>
+          </Grid.Column>
+
+          <Grid.Column width={12}>
+            <PopupContent
+              openSettings={() => setShowSettings(true)}
+              closePopup={() => showDetails(false)}
+              label={(buttons.find(({ id }) => key === id) || {}).label || ""}
+              content={(buttons.find(({ id }) => key === id) || {}).content || <NoContentAvailable />}
+            />
+          </Grid.Column>
+        </Grid>
+      </Modal>
+      <Modal
+        open={showSettings}
+        onClose={handleClose}
+      >
+        <Modal.Header>Settings</Modal.Header>
+        <Modal.Content>
+          <Settings
+            data={extSettings}
+            save={saveExtSettings}
+          />
+        </Modal.Content>
+      </Modal>
     </div>
   );
 }

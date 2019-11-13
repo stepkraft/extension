@@ -1,9 +1,38 @@
 .ext-container {
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: .3rem;
   position: absolute;
-  min-width: 600px;
+  /* min-width: 600px; */
   margin: 25px;
-  padding-right: 10px;
+  padding: 5px 10px 5px 5px;
   box-sizing: border-box;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.ext-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ext-button > i.icon {
+  font-size: 1.5em;
+}
+
+.ext-button > span {
+  font-size: 0.5em;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.4em;
+  align-items: center;
 }
 
 section {
@@ -12,5 +41,5 @@ section {
 
 .modal[role='dialog'] {
   position: absolute;
-  margin-left: 15px;
+  margin: 0 !important;
 }
