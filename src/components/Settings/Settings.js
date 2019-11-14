@@ -1,50 +1,57 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { get } from 'lodash'
 import { func } from 'prop-types';
 import { Form } from 'semantic-ui-react';
+import LangContext from '../../services/LangContext';
 
 const options = [
-    { key: 'en', text: 'English', value: 'en-US' },
-    { key: 'ru', text: 'Русский', value: 'ru-RU' },
+    { key: 'en', value: 'en-US' },
+    { key: 'ru', value: 'ru-RU' },
 ];
 
 const Settings = ({save, ...props}) => {
+    const { currentLangData } = useContext(LangContext);
+
     return (
         <Form>
             <Form.Group inline>
-                <label>vertical position</label>
+                <label>{get(currentLangData, `settings.verticalPosition`, '')}</label>
                 <Form.Radio
-                    label='top'
+                    label={get(currentLangData, `settings.top`, '')}
                     value='top'
                     checked={props.data.verticalPosition === 'top'}
                     onChange={(_, { value }) => save({verticalPosition: value})}
                 />
                 <Form.Radio
-                    label='bottom'
+                    label={get(currentLangData, `settings.bottom`, '')}
                     value='bottom'
                     checked={props.data.verticalPosition === 'bottom'}
                     onChange={(_, { value }) => save({verticalPosition: value})}
                 />
             </Form.Group>
             <Form.Group inline>
-                <label>horizontal position</label>
+                <label>{get(currentLangData, `settings.horizontalPosition`, '')}</label>
                 <Form.Radio
-                    label='left'
+                    label={get(currentLangData, `settings.left`, '')}
                     value='left'
                     checked={props.data.horizontalPosition === 'left'}
                     onChange={(_, { value }) => save({horizontalPosition: value})}
                 />
                 <Form.Radio
-                    label='right'
+                    label={get(currentLangData, `settings.right`, '')}
                     value='right'
                     checked={props.data.horizontalPosition === 'right'}
                     onChange={(_, { value }) => save({horizontalPosition: value})}
                 />
             </Form.Group>
             <Form.Group inline>
-                <label>Language</label>
+                <label>{get(currentLangData, `settings.language`, '')}</label>
                 <Form.Select
                     fluid
-                    options={options}
+                    options={options.map((o) => ({
+                        ...o,
+                        text: get(currentLangData, `settings.languages.${o.key}`, '')
+                    }))}
                     value={props.data.language}
                     onChange={(_, { value }) => save({language: value})}
                 />

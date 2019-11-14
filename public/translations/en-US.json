@@ -9,6 +9,17 @@
         } 
     },
     "settings": {
-        "header": "Settings"
+        "header": "Settings",
+        "verticalPosition": "Vertical position",
+        "horizontalPosition": "Horizontal position",
+        "language": "Language",
+        "top": "Top",
+        "bottom": "Bottom",
+        "left": "Left",
+        "right": "Right",
+        "languages": {
+            "en": "English",
+            "ru": "Русский"
+        }
     }
 }

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { get } from 'lodash';
 import { Button, Icon, Modal, Grid, Menu } from 'semantic-ui-react';
 import './App.css';
 import Settings from './components/Settings';
@@ -52,8 +53,7 @@ return (
           <Button key={id} size='big' disabled={disabled} basic onClick={() => showModal(id)}>
             <div className='ext-button'>
               {icon && <Icon color={icon.color || 'grey'} name={icon.name} />}
-              {currentLangData.main && currentLangData.main.buttons && currentLangData.main.buttons[id] &&
-                <span>{currentLangData.main.buttons[id]}</span>}
+              <span>{get(currentLangData, `main.buttons.${id}`, '')}</span>
             </div>
           </Button>
         )}
@@ -66,7 +66,7 @@ return (
               {buttons.map(({ id, disabled }) => <Menu.Item
                 key={id}
                 name={id}
-                content={currentLangData.main && currentLangData.main.buttons && currentLangData.main.buttons[id]}
+                content={get(currentLangData, `main.buttons.${id}`, '')}
                 disabled={disabled}
                 active={key === id}
                 onClick={handleItemClick}
@@ -78,7 +78,7 @@ return (
             <PopupContent
               openSettings={() => setShowSettings(true)}
               closePopup={() => showDetails(false)}
-              label={currentLangData.main && currentLangData.main.buttons && currentLangData.main.buttons[key] || ""}
+              label={get(currentLangData, `main.buttons.${key}`, '')}
               content={(buttons.find(({ id }) => key === id) || {}).content || <NoContentAvailable />}
             />
           </Grid.Column>
@@ -88,7 +88,7 @@ return (
         open={showSettings}
         onClose={handleClose}
       >
-        <Modal.Header>{currentLangData.settings && currentLangData.settings.header}</Modal.Header>
+        <Modal.Header>{get(currentLangData, `settings.header`, '')}</Modal.Header>
         <Modal.Content>
           <Settings
             data={extSettings}

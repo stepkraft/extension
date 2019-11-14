@@ -9,6 +9,17 @@
         } 
     },
     "settings": {
-        "header": "Настройки"
+        "header": "Настройки",
+        "verticalPosition": "Вертикальная позиция",
+        "horizontalPosition": "Горизонтальная позиция",
+        "language": "Язык",
+        "top": "Сверху",
+        "bottom": "Снизу",
+        "left": "Слева",
+        "right": "Справа",
+        "languages": {
+            "en": "English",
+            "ru": "Русский"
+        }
     }
 }
