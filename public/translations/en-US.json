@@ -1,0 +1,14 @@
+{
+    "main": {
+        "buttons": {
+            "rating": "Rating",
+            "address": "WWW address",
+            "bonuses": "Bonuses",
+            "feedbacks": "Feedbacks",
+            "prices": "Prices"
+        } 
+    },
+    "settings": {
+        "header": "Settings"
+    }
+}

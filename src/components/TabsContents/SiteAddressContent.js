@@ -19,8 +19,8 @@ const SiteAddressContent = () => {
     
         <Header as='h4'>Other shops</Header>
         <Form.Group>
-          {otherSites.map((site) =>
-            <Form.Field inline>
+          {otherSites.map((site, idx) =>
+            <Form.Field inline key={idx}>
               <label>{site.name}</label>
               <a href={site.url}>{site.url}</a>
             </Form.Field>

@@ -1,6 +1,11 @@
 import React from 'react';
 import { func } from 'prop-types';
-import { Form } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react';
+
+const options = [
+    { key: 'en', text: 'English', value: 'en-US' },
+    { key: 'ru', text: 'Русский', value: 'ru-RU' },
+];
 
 const Settings = ({save, ...props}) => {
     return (
@@ -33,6 +38,15 @@ const Settings = ({save, ...props}) => {
                     value='right'
                     checked={props.data.horizontalPosition === 'right'}
                     onChange={(_, { value }) => save({horizontalPosition: value})}
+                />
+            </Form.Group>
+            <Form.Group inline>
+                <label>Language</label>
+                <Form.Select
+                    fluid
+                    options={options}
+                    value={props.data.language}
+                    onChange={(_, { value }) => save({language: value})}
                 />
             </Form.Group>
         </Form>

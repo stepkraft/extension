@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Icon, Modal, Grid, Menu } from 'semantic-ui-react';
 import './App.css';
 import Settings from './components/Settings';
 import { PopupContent, NoContentAvailable } from './components/PopupContent';
+import LangContext from './services/LangContext';
 import { useSettinngsStateWithLocalStorage } from './services';
 import { SiteAddressContent, BonusesContent } from './components/TabsContents';
 
 const buttons = [
-  { id: 'rating', label: 'Rating', icon: { name: 'star outline'}, disabled: true },
-  { id: 'address', label: 'WWW address', icon: { name: 'circle outline', color: 'yellow' }, content: <SiteAddressContent /> },
-  { id: 'bonuses', label: 'Bonuses', icon: { name: 'money bill alternate outline', color: 'green'}, content: <BonusesContent /> },
-  { id: 'feedbacks', label: 'Feedbacks', icon: { name: 'comment outline'}, disabled: true },
-  { id: 'prices', label: 'Prices', icon: { name: 'money'}, disabled: true },
+  { id: 'rating', icon: { name: 'star outline'}, disabled: true },
+  { id: 'address', icon: { name: 'circle outline', color: 'yellow' }, content: <SiteAddressContent /> },
+  { id: 'bonuses', icon: { name: 'money bill alternate outline', color: 'green'}, content: <BonusesContent /> },
+  { id: 'feedbacks', icon: { name: 'comment outline'}, disabled: true },
+  { id: 'prices', icon: { name: 'money'}, disabled: true },
 ];
 
 function App() {
@@ -19,12 +20,19 @@ function App() {
   const [detailsOpened, showDetails] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [extSettings, setExtSettings] = useSettinngsStateWithLocalStorage();
+  const { lang, switchLang, currentLangData } = useContext(LangContext);
     
   const handleClose = () => setShowSettings(false);
-  const saveExtSettings = (obj) => setExtSettings({
-    ...extSettings,
-    ...obj,
-  });
+  const saveExtSettings = (obj) => {
+    const toSave = {
+      ...extSettings,
+      ...obj,
+    };
+    setExtSettings(toSave);
+    if (toSave.language !== lang) {
+      switchLang(toSave.language);
+    }
+  };
   const showModal = (buttonId) => {
     showDetails(true);
     setKey(buttonId);
@@ -34,18 +42,18 @@ function App() {
     setKey(name);
   };
 
-
-  return (
+return (
     <div className="ext-container" style={{
       ...(extSettings.verticalPosition === 'top' ? {top: 0} : {bottom: 0}),
       ...(extSettings.horizontalPosition === 'left' ? {left: 0} : {right: 0}),      
     }}>
       <Button.Group>
-        {buttons/*.filter(({disabled}) => !disabled)*/.map(({ id, label, icon, disabled }) =>
+        {buttons/*.filter(({disabled}) => !disabled)*/.map(({ id, icon, disabled }) =>
           <Button key={id} size='big' disabled={disabled} basic onClick={() => showModal(id)}>
             <div className='ext-button'>
               {icon && <Icon color={icon.color || 'grey'} name={icon.name} />}
-              {label && <span>{label}</span>}
+              {currentLangData.main && currentLangData.main.buttons && currentLangData.main.buttons[id] &&
+                <span>{currentLangData.main.buttons[id]}</span>}
             </div>
           </Button>
         )}
@@ -55,10 +63,10 @@ function App() {
         <Grid>
           <Grid.Column width={4}>
             <Menu vertical tabular>
-              {buttons.map(({ id, label, disabled }) => <Menu.Item
+              {buttons.map(({ id, disabled }) => <Menu.Item
                 key={id}
                 name={id}
-                content={label}
+                content={currentLangData.main && currentLangData.main.buttons && currentLangData.main.buttons[id]}
                 disabled={disabled}
                 active={key === id}
                 onClick={handleItemClick}
@@ -70,7 +78,7 @@ function App() {
             <PopupContent
               openSettings={() => setShowSettings(true)}
               closePopup={() => showDetails(false)}
-              label={(buttons.find(({ id }) => key === id) || {}).label || ""}
+              label={currentLangData.main && currentLangData.main.buttons && currentLangData.main.buttons[key] || ""}
               content={(buttons.find(({ id }) => key === id) || {}).content || <NoContentAvailable />}
             />
           </Grid.Column>
@@ -80,7 +88,7 @@ function App() {
         open={showSettings}
         onClose={handleClose}
       >
-        <Modal.Header>Settings</Modal.Header>
+        <Modal.Header>{currentLangData.settings && currentLangData.settings.header}</Modal.Header>
         <Modal.Content>
           <Settings
             data={extSettings}

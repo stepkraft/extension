@@ -20,8 +20,8 @@ const BonusesContent = () => {
     
         <Header as='h4'>Other bonuses</Header>
         <List divided relaxed>
-          {otherBonuses.map(({logo, text, url}) =>
-            <List.Item>
+          {otherBonuses.map(({logo, text, url}, idx) =>
+            <List.Item key={idx}>
               <Image avatar src={`/${logo}`} />
               <List.Content>
                 <List.Header as='a'>{text}</List.Header>

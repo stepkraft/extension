@@ -1,0 +1,14 @@
+{
+    "main": {
+        "buttons": {
+            "rating": "Рейтинг",
+            "address": "WWW адрес",
+            "bonuses": "Бонусы",
+            "feedbacks": "Отзывы",
+            "prices": "Цены"
+        } 
+    },
+    "settings": {
+        "header": "Настройки"
+    }
+}
