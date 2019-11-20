@@ -5,11 +5,12 @@ import { LangProvider } from './services/LangContext';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css'
+
 const tree = (
-    <LangProvider>
-      <App/>
-    </LangProvider>
-  )
+  <LangProvider>
+    <App/>
+  </LangProvider>
+);
 
 ReactDOM.render(tree, document.getElementById('root'));
 
