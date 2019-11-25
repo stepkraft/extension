@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { useSettinngsStateWithLocalStorage } from '../services';
+import translations  from '../translations';
 
 const LangContext = React.createContext({
     lang: '',
@@ -17,9 +18,7 @@ export function LangProvider(props) {
 
     const fetchTranslation = async (lg) => {
         try {
-            const response = await fetch(`/translations/${lg}.json`);
-            const langData = await response.json();
-            setCurrentLangData(langData);
+            setCurrentLangData(translations[lg]);
         } catch (e) {
             console.error('cannot fetch translations', e)
         }
