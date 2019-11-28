@@ -1,0 +1,25 @@
+{
+    "main": {
+        "buttons": {
+            "rating": "Rating",
+            "address": "WWW address",
+            "bonuses": "Bonuses",
+            "feedbacks": "Feedbacks",
+            "prices": "Prices"
+        } 
+    },
+    "settings": {
+        "header": "Settings",
+        "verticalPosition": "Vertical position",
+        "horizontalPosition": "Horizontal position",
+        "language": "Language",
+        "top": "Top",
+        "bottom": "Bottom",
+        "left": "Left",
+        "right": "Right",
+        "languages": {
+            "en": "English",
+            "ru": "Русский"
+        }
+    }
+}
