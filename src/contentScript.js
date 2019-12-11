@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { LangProvider } from './services/LangContext';
 import Frame, { FrameContextConsumer }from 'react-frame-component';
 import App from './App';
-// import 'semantic-ui-css/semantic.min.css';
 import './semantic/dist/semantic.min.css';
 
 const tree = (
