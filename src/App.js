@@ -23,7 +23,6 @@ function App() {
   const [extSettings, setExtSettings] = useSettinngsStateWithLocalStorage();
   const { lang, switchLang, currentLangData } = useContext(LangContext);
     
-  const handleClose = () => setShowSettings(false);
   const saveExtSettings = (obj) => {
     const toSave = {
       ...extSettings,
@@ -40,6 +39,7 @@ function App() {
   }
 
   const handleItemClick = (_, { name }) => {
+    setShowSettings(false);
     setKey(name);
   };
 
@@ -77,24 +77,19 @@ return (
           <Grid.Column width={12}>
             <PopupContent
               openSettings={() => setShowSettings(true)}
-              closePopup={() => showDetails(false)}
+              closePopup={() => { !!showSettings ? setShowSettings(false) : showDetails(false)}}
               label={get(currentLangData, `main.buttons.${key}`, '')}
-              content={(buttons.find(({ id }) => key === id) || {}).content || <NoContentAvailable />}
+              content={
+                !! showSettings ?
+                  <Settings
+                    data={extSettings}
+                    save={saveExtSettings}
+                  /> :
+                (buttons.find(({ id }) => key === id) || {}).content || <NoContentAvailable />
+              }
             />
           </Grid.Column>
         </Grid>
-      </Modal>
-      <Modal
-        open={showSettings}
-        onClose={handleClose}
-      >
-        <Modal.Header>{get(currentLangData, `settings.header`, '')}</Modal.Header>
-        <Modal.Content>
-          <Settings
-            data={extSettings}
-            save={saveExtSettings}
-          />
-        </Modal.Content>
       </Modal>
     </div>
   );
