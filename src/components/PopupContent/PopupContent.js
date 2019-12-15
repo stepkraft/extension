@@ -6,13 +6,13 @@ const PopupContent = ({openSettings, closePopup, label, content}) => {
     return (
       <Container>
         <div className='popup-header'>
-          <Icon link name='setting' onClick={() => openSettings()} />
-          <Header as='h2'>{label}</Header>
+          <Icon link name='setting' size='large' className='greyed' onClick={() => openSettings()} />
+          <Header as='h3'>{label}</Header>
           <div style={{paddingRight: '1em'}}>
-            <Icon link name='close' onClick={() => closePopup()} />
+            <Icon link name='close' size='large' className='greyed' onClick={() => closePopup()} />
           </div>
         </div>
-        <Divider />
+        <Divider fitted />
         <Container>{content}</Container>
       </Container>
     );

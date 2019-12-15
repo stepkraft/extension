@@ -10,10 +10,10 @@ import { SiteAddressContent, BonusesContent } from './components/TabsContents';
 
 const buttons = [
   { id: 'rating', icon: { name: 'star outline'}, disabled: true },
-  { id: 'address', icon: { name: 'circle outline', color: 'yellow' }, content: <SiteAddressContent /> },
-  { id: 'bonuses', icon: { name: 'money bill alternate outline', color: 'green'}, content: <BonusesContent /> },
+  { id: 'address', icon: { name: 'linkify', color: 'yellow' }, content: <SiteAddressContent /> },
+  { id: 'bonuses', icon: { name: 'chess king', color: 'green'}, content: <BonusesContent /> },
   { id: 'feedbacks', icon: { name: 'comment outline'}, disabled: true },
-  { id: 'prices', icon: { name: 'money'}, disabled: true },
+  { id: 'prices', icon: { name: 'tag'}, disabled: true },
 ];
 
 function App() {
@@ -61,24 +61,27 @@ return (
 
       <Modal open={detailsOpened} onClose={() => showDetails(false)}>
         <Grid>
-          <Grid.Column width={4}>
-            <Menu vertical tabular>
-              {buttons.map(({ id, disabled }) => <Menu.Item
+          <Grid.Column width={6} className="ext-modal-menu-column">
+            <Menu vertical tabular fluid>
+              {buttons.map(({ id, icon, disabled }) => <Menu.Item
                 key={id}
                 name={id}
-                content={get(currentLangData, `main.buttons.${id}`, '')}
                 disabled={disabled}
                 active={key === id}
                 onClick={handleItemClick}
-              />)}
+              >
+                <div className='ext-modal-menu-button'>
+                  {icon && <Icon size='large' name={icon.name} />}
+                  <span>{get(currentLangData, `main.buttons.${id}`, '')}</span>
+                </div>
+              </Menu.Item>)}
             </Menu>
           </Grid.Column>
-
-          <Grid.Column width={12}>
+          <Grid.Column width={10} className="ext-modal-content-column row">
             <PopupContent
               openSettings={() => setShowSettings(true)}
               closePopup={() => { !!showSettings ? setShowSettings(false) : showDetails(false)}}
-              label={get(currentLangData, `main.buttons.${key}`, '')}
+              label={get(currentLangData, !! showSettings ? `settings.header` : `main.buttons.${key}`, '')}
               content={
                 !! showSettings ?
                   <Settings

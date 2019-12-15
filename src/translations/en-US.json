@@ -21,5 +21,10 @@
             "en": "English",
             "ru": "Русский"
         }
+    },
+    "www": {
+        "no-connection-header": "No connection :(",
+        "no-connection-explanation": "Try later please",
+        "reftrsh-site": "Refresh"
     }
 }

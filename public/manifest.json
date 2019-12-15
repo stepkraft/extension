@@ -17,8 +17,12 @@
   "web_accessible_resources":[
     "/static/css/contentScript.css",
     "/static/media/*",
-    "/assets/*"
-
+    "/assets/*",
+    "*.eot",
+    "*.woff",
+    "*.woff2",
+    "*.ttf",
+    "*.svg"
   ],
-  "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'"
+  "content_security_policy": "font-src 'self' data:;  default-src 'self'; script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'"
 }

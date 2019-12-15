@@ -1,10 +1,17 @@
+*, .modals {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: normal;
+}
+
 .ext-container {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0,0,0,.2);
   border-radius: .3rem;
-  position: absolute;
-  /* min-width: 600px; */
+  position: fixed;
+  z-index: 100500;
   margin: 25px;
   padding: 5px 10px 5px 5px;
   box-sizing: border-box;
@@ -31,8 +38,13 @@
 .popup-header {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.4em;
   align-items: center;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.popup-header h3.ui.header {
+  margin: 1rem;
 }
 
 section {
@@ -42,4 +54,65 @@ section {
 .modal[role='dialog'] {
   position: absolute;
   margin: 0 !important;
+}
+
+.ext-modal-menu-column > .ui.fluid.vertical.tabular.menu {
+  background-color: #1565A4;
+  height: 100%;
+}
+
+.ext-modal-menu-column > .ui.fluid.vertical.tabular.menu .item {
+  color: white;
+  background-color: #002F6C;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  height: 60px;
+}
+
+.ext-modal-menu-column > .ui.fluid.vertical.tabular.menu .item.disabled {
+  color: #5190C2;
+  background-color: #01579B;
+}
+
+.ext-modal-menu-column > .ui.fluid.vertical.tabular.menu .item.active {
+  color: #333333;
+  background-color: white;
+}
+
+.ui.grid>.column.ext-modal-content-column {
+  min-height: 500px;;
+}
+
+.ext-modal-content-column .greyed {
+  color: #BDBDBD;
+}
+
+
+.ext-modal-menu-button > .icon {
+  margin-right: 1em;
+}
+
+.no-content-container {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  margin: 2rem auto;
+  width: 60%;
+}
+
+.no-content-container .no-content-image {
+  height: 152px;
+  background-image: url(../src/assets/404-error.png);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.no-content-container .no-content-explanation {
+  font-size: 1.3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
