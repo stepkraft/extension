@@ -91,9 +91,17 @@ section {
   color: #BDBDBD;
 }
 
+.ext-modal-menu-button {
+  width: 100%;
+}
 
 .ext-modal-menu-button > .icon {
   margin-right: 1em;
+}
+
+.ext-modal-menu-button .connection-status {
+  float: right;
+  margin-top: 0.2rem;
 }
 
 .no-content-container {

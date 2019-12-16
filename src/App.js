@@ -20,6 +20,7 @@ function App() {
   const [key, setKey] = useState('address');
   const [detailsOpened, showDetails] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState(true);
   const [extSettings, setExtSettings] = useSettinngsStateWithLocalStorage();
   const { lang, switchLang, currentLangData } = useContext(LangContext);
     
@@ -73,6 +74,7 @@ return (
                 <div className='ext-modal-menu-button'>
                   {icon && <Icon size='large' name={icon.name} />}
                   <span>{get(currentLangData, `main.buttons.${id}`, '')}</span>
+                  {'address' === id && <Icon size='small' name='circle thin' color={!!connectionStatus ? 'green': 'yellow'} className='connection-status' />}
                 </div>
               </Menu.Item>)}
             </Menu>
