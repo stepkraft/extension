@@ -2,19 +2,20 @@ import React, { useState, useLayoutEffect } from 'react';
 import { useSettinngsStateWithLocalStorage } from '../services';
 import translations  from '../translations';
 
-const LangContext = React.createContext({
+const AppContext = React.createContext({
     lang: '',
     currentLangData: {},
     switchLang: () => { },
 });
 
-export default LangContext;
+export default AppContext;
 
-export function LangProvider(props) {
-    const [extSettings] = useSettinngsStateWithLocalStorage();
+export function AppProvider(props) {
+    const [ extSettings ] = useSettinngsStateWithLocalStorage();
     const { language: currentLanguage } = extSettings;
-    const [lang, setLang] = useState(currentLanguage);
-    const [currentLangData, setCurrentLangData] = useState({});
+    const [ lang, setLang ] = useState(currentLanguage);
+    const [ currentLangData, setCurrentLangData ] = useState({});
+    const [ connectionStatus, setConnectionStatus ] = useState(false);
 
     const fetchTranslation = async (lg) => {
         try {
@@ -37,12 +38,14 @@ export function LangProvider(props) {
     };
 
     return (
-        <LangContext.Provider value={{
+        <AppContext.Provider value={{
             lang,
             switchLang,
             currentLangData,
+            connectionStatus,
+            setConnectionStatus,
         }}>
             {props.children}
-        </LangContext.Provider>
+        </AppContext.Provider>
     );
 };

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { get } from 'lodash'
 import { func } from 'prop-types';
 import { Form } from 'semantic-ui-react';
-import LangContext from '../../services/LangContext';
+import AppContext from '../../services/AppContext';
 
 const options = [
     { key: 'en', value: 'en-US' },
@@ -10,7 +10,7 @@ const options = [
 ];
 
 const Settings = ({save, ...props}) => {
-    const { currentLangData } = useContext(LangContext);
+    const { currentLangData } = useContext(AppContext);
 
     return (
         <Form>

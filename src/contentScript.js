@@ -3,7 +3,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { LangProvider } from './services/LangContext';
+import { AppProvider } from './services/AppContext';
 // import Frame, { FrameContextConsumer }from 'react-frame-component';
 import App from './App';
 // import 'semantic-ui-css/semantic.min.css';
@@ -15,9 +15,9 @@ const tree = (
   //     {
   //       // Callback is invoked with iframe's window and document instances
   //       ({document, window}) => (
-          <LangProvider>
+          <AppProvider>
             <App/>
-          </LangProvider>
+          </AppProvider>
   //       )
   //     }
   //   </FrameContextConsumer>

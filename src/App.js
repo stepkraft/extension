@@ -4,7 +4,7 @@ import { Button, Icon, Modal, Grid, Menu } from 'semantic-ui-react';
 import './App.css';
 import Settings from './components/Settings';
 import { PopupContent, NoContentAvailable } from './components/PopupContent';
-import LangContext from './services/LangContext';
+import AppContext from './services/AppContext';
 import { useSettinngsStateWithLocalStorage } from './services';
 import { SiteAddressContent, BonusesContent } from './components/TabsContents';
 
@@ -20,9 +20,8 @@ function App() {
   const [key, setKey] = useState('address');
   const [detailsOpened, showDetails] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState(true);
   const [extSettings, setExtSettings] = useSettinngsStateWithLocalStorage();
-  const { lang, switchLang, currentLangData } = useContext(LangContext);
+  const { lang, switchLang, currentLangData, connectionStatus } = useContext(AppContext);
     
   const saveExtSettings = (obj) => {
     const toSave = {
