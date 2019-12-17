@@ -170,3 +170,14 @@ section {
   margin-left: -1rem !important;
   overflow: hidden;
 }
+
+.ext-bonuses-container {
+  padding: 1rem;
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.ext-bonuses-container .segment {
+  height: 100%;
+}
