@@ -106,7 +106,8 @@ section {
 
 .ext-addresses-other-container {
   max-height: 300px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .no-content-container {
@@ -163,4 +164,9 @@ section {
   background-size: cover;
   width: 1rem;
   height: 1rem;
+}
+
+.ui.container.ext-popup-content {
+  margin-left: -1rem !important;
+  overflow: hidden;
 }

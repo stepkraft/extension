@@ -13,7 +13,7 @@ const PopupContent = ({openSettings, closePopup, label, content}) => {
           </div>
         </div>
         <Divider fitted />
-        <Container style={{marginLeft: '-1rem !important'}}>{content}</Container>
+        <Container className='ext-popup-content' style={{marginLeft: '-1rem !important'}}>{content}</Container>
       </Container>
     );
 };
