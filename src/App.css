@@ -105,7 +105,7 @@ section {
 }
 
 .ext-addresses-other-container {
-  max-height: 300px;
+  max-height: 250px;
   overflow-x: hidden;
   overflow-y: auto;
 }

@@ -28,5 +28,8 @@
         "reftrsh-site": "Обновить сайт",
         "go-to-site": "Перейти на сайт",
         "other-shops-devider": "Другие магазины"
+    },
+    "feedbacks": {
+        "filter-string": "Только от покупателей из: "
     }
 }
