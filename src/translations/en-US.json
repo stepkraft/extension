@@ -25,6 +25,8 @@
     "www": {
         "no-connection-header": "No connection :(",
         "no-connection-explanation": "Try later please",
-        "reftrsh-site": "Refresh"
+        "reftrsh-site": "Refresh",
+        "go-to-site": "Go to the site",
+        "other-shops-devider": "Other shops"
     }
 }

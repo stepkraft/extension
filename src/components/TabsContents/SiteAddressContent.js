@@ -40,58 +40,42 @@ const NoConnectionContent = ({currentLangData, setConnectionStatus}) => {
   );
 }
 
+const AddressesGrid = ({ currentLangData, sites, classNames = '' }) => {
+  return (
+    <Grid columns={3} padded className={[].concat('ext-addresses-table', classNames).filter(Boolean).join(' ')}>
+      {sites.map((s, idx) => (
+        <Grid.Row key={idx}>
+          <Grid.Column width={4}>
+            <Image src={s.imageUrl} fluid />
+            <a href={s.url}>{s.url}</a>
+          </Grid.Column>
+          <Grid.Column width={8} className='advertisment-column'>
+            <div className='coupon'>
+              {!!s.sale && <div className='sale' />}
+            </div>
+            <div className='advertisment-text'>{s.advertiseText}</div>
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <Button color='green'>
+              {get(currentLangData, `www.go-to-site`, '')}
+            </Button>
+          </Grid.Column>  
+        </Grid.Row>
+      ))}
+    </Grid>    
+  );
+}
+
 const SiteAddressContent = () => {
   const { currentLangData, connectionStatus, setConnectionStatus } = useContext(AppContext);
 
   const content = !connectionStatus ? 
     <NoConnectionContent currentLangData={currentLangData} setConnectionStatus={setConnectionStatus} /> :
     <>
-      <Grid columns={3} padded className='ext-addresses-table ext-addresses-main-table'>
-        {mainSites.map((s, idx) => (
-          <Grid.Row key={idx}>
-            <Grid.Column width={4}>
-              <Image src={s.imageUrl} fluid />
-              <a href={s.url}>{s.url}</a>
-            </Grid.Column>
-            <Grid.Column width={8} className='advertisment-column'>
-              <div className='coupon'>
-                {/* {s.couponText} */}
-                {!!s.sale && <div className='sale' />}
-              </div>
-              <div className='advertisment-text'>{s.advertiseText}</div>
-            </Grid.Column>
-            <Grid.Column width={4}>
-              <Button color='green'>
-                go to site
-              </Button>
-            </Grid.Column>  
-          </Grid.Row>
-        ))}
-      </Grid>
-      <Divider horizontal>Другие магазины</Divider>
+      <AddressesGrid currentLangData={currentLangData} sites={mainSites} classNames='ext-addresses-main-table' />
+      <Divider horizontal>{get(currentLangData, `www.other-shops-devider`, '')}</Divider>
       <Container fluid className='ext-addresses-other-container'>
-        <Grid columns={3} padded className='ext-addresses-table'>
-          {otherSites.map((s, idx) => (
-            <Grid.Row key={idx}>
-              <Grid.Column width={4}>
-                <Image src={s.imageUrl} fluid />
-                <a href={s.url}>{s.url}</a>
-              </Grid.Column>
-              <Grid.Column width={8} className='advertisment-column'>
-              <div className='coupon'>
-                {/* {s.couponText} */}
-                {!!s.sale && <div className='sale' />}
-              </div>
-              <div className='advertisment-text'>{s.advertiseText}</div>
-            </Grid.Column>
-              <Grid.Column width={4}>
-                <Button color='green'>
-                  go to site
-                </Button>
-              </Grid.Column>  
-            </Grid.Row>
-          ))}
-        </Grid>
+        <AddressesGrid currentLangData={currentLangData} sites={otherSites} />
       </Container>
     </>
     return (

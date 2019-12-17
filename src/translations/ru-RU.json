@@ -25,6 +25,8 @@
     "www": {
         "no-connection-header": "Ошибка подключения :(",
         "no-connection-explanation": "Попробуйте позже или перейдите на сайт",
-        "reftrsh-site": "Обновить сайт"
+        "reftrsh-site": "Обновить сайт",
+        "go-to-site": "Перейти на сайт",
+        "other-shops-devider": "Другие магазины"
     }
 }
