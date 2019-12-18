@@ -6,14 +6,14 @@ import Settings from './components/Settings';
 import { PopupContent, NoContentAvailable } from './components/PopupContent';
 import AppContext from './services/AppContext';
 import { useSettinngsStateWithLocalStorage } from './services';
-import { SiteAddressContent, BonusesContent, FeedbacksContent } from './components/TabsContents';
+import { SiteAddressContent, BonusesContent, FeedbacksContent, PricesContent } from './components/TabsContents';
 
 const buttons = [
   { id: 'rating', icon: { name: 'star outline'}, disabled: true },
   { id: 'address', icon: { name: 'linkify', color: 'yellow' }, content: <SiteAddressContent /> },
   { id: 'bonuses', icon: { name: 'chess king', color: 'green'}, content: <BonusesContent /> },
   { id: 'feedbacks', icon: { name: 'comment outline'}, content: <FeedbacksContent /> },
-  { id: 'prices', icon: { name: 'tag'}, disabled: true },
+  { id: 'prices', icon: { name: 'tag'}, content: <PricesContent /> },
 ];
 
 function App() {
