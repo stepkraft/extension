@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Container, Image, Grid, Segment, Button, Divider } from 'semantic-ui-react'
+import { Container, Rating, Flag, Segment, Radio } from 'semantic-ui-react'
 import { get } from 'lodash'
 import AppContext from '../../services/AppContext';
 
@@ -20,14 +20,20 @@ const FeedbacksContent = () => {
 
     return (
       <Container className='ext-feedbacks-container'>
-        <Segment>
-          {get(currentLangData, `feedbacks.filter-string`, '')}
+        <Segment className='ext-feedbacks-filter'>
+          <span>{get(currentLangData, `feedbacks.filter-string`, '')}</span>
           <span><b>{currentCountry}</b></span>
+          <Radio toggle checked={useFilter} onChange={(e, { checked }) => { setFilter(checked) }} />
         </Segment>
-        <div>
-          {comments.filter((c) => (!!useFilter ? c.country === 'uk' : true)).map((comment, idx) => (
-            <Segment vertical>
-              {comment.text}
+        <div className='ext-feedbacks-list'>
+          {comments.filter((c) => (!!useFilter ? c.country === 'ua' : true)).map((comment, idx) => (
+            <Segment vertical key={idx}>
+              <Container>
+                <Flag name={comment.country} />
+                {comment.country}
+                <Rating defaultRating={comment.rating} maxRating={5} disabled />
+              </Container>
+              <Container>{comment.text}</Container>
             </Segment>
           ))}
         </div>

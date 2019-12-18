@@ -181,3 +181,19 @@ section {
 .ext-bonuses-container .segment {
   height: 100%;
 }
+
+.ext-feedbacks-container .ext-feedbacks-filter{
+  display: flex;
+  align-items: center;
+}
+
+.ext-feedbacks-container .ext-feedbacks-filter > * {
+  padding-right: 0.5rem;
+}
+
+.ext-feedbacks-container .ext-feedbacks-list {
+  margin: 0 1rem;
+  max-height: 330px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
