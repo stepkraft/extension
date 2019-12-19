@@ -20,6 +20,11 @@
         "languages": {
             "en": "English",
             "ru": "Русский"
+        },
+        "color-scheme": {
+            "label": "Цветовая схема",
+            "light": "Светлая",
+            "dark": "Темная"
         }
     },
     "www": {

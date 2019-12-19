@@ -20,6 +20,11 @@
         "languages": {
             "en": "English",
             "ru": "Русский"
+        },
+        "color-scheme": {
+            "label": "Theme",
+            "light": "Light",
+            "dark": "Dark"
         }
     },
     "www": {

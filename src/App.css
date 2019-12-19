@@ -169,6 +169,8 @@ section {
 .ui.container.ext-popup-content {
   margin-left: -1rem !important;
   overflow: hidden;
+  max-height: 25rem;
+  height: 100%;
 }
 
 .ext-bonuses-container {
@@ -196,4 +198,8 @@ section {
   max-height: 330px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.ext-settings-container {
+  padding: 1rem 1rem 0 1rem;
 }
