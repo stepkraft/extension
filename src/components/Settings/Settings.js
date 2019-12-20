@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { get } from 'lodash'
 import { func } from 'prop-types';
-import { Form, Container, Button, Divider, Dropdown } from 'semantic-ui-react';
+import { Form, Container, Button, Divider, Dropdown, Icon } from 'semantic-ui-react';
 import AppContext from '../../services/AppContext';
 
 const options = [
@@ -18,9 +18,11 @@ const Settings = ({save, ...props}) => {
                 <Form.Field>
                     <label>{get(currentLangData, `settings.color-scheme.label`, '')}</label>   
                     <Button.Group>
-                        <Button active>{get(currentLangData, `settings.color-scheme.light`, '')}</Button>
-                        <Button.Or />
-                        <Button disabled>{get(currentLangData, `settings.color-scheme.dark`, '')}</Button>
+                      <Button active icon>
+                        <Icon name='check' color='green' />&nbsp;
+                        {get(currentLangData, `settings.color-scheme.light`, '')}&nbsp;
+                      </Button>
+                      <Button disabled>{get(currentLangData, `settings.color-scheme.dark`, '')}</Button>
                     </Button.Group>
                 </Form.Field>
                 <Divider hidden />

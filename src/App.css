@@ -104,100 +104,11 @@ section {
   margin-top: 0.2rem;
 }
 
-.ext-addresses-other-container {
-  max-height: 250px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.no-content-container {
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  margin: 2rem auto;
-  width: 60%;
-}
-
-.no-content-container .no-content-image {
-  height: 152px;
-  background-image: url(../src/assets/404-error.png);
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.no-content-container .no-content-explanation {
-  font-size: 1.3rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.ext-addresses-table.ui.grid>.row>.column.advertisment-column {
-  display: flex;
-  align-items: stretch;
-  align-self: center;
-  justify-content: space-around;
-}
-
-.ext-addresses-table .advertisment-column .coupon {
-  width: 25%;
-  position: relative;
-  margin-right: 1rem;
-  padding-right: 1rem;
-}
-
-.ext-addresses-table .advertisment-column .coupon > .sale {
-  position: absolute;
-  top: -0.2rem;
-  right: -0.2rem;
-}
-
-.ext-addresses-table .coupon {
-  background-image: url(../src/assets/coupon.png);
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.ext-addresses-table .sale {
-  background-image: url(../src/assets/sale.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 1rem;
-  height: 1rem;
-}
-
 .ui.container.ext-popup-content {
   margin-left: -1rem !important;
   overflow: hidden;
   max-height: 25rem;
   height: 100%;
-}
-
-.ext-bonuses-container {
-  padding: 1rem;
-  max-height: 400px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.ext-bonuses-container .segment {
-  height: 100%;
-}
-
-.ext-feedbacks-container .ext-feedbacks-filter{
-  display: flex;
-  align-items: center;
-}
-
-.ext-feedbacks-container .ext-feedbacks-filter > * {
-  padding-right: 0.5rem;
-}
-
-.ext-feedbacks-container .ext-feedbacks-list {
-  margin: 0 0 0 1rem;
-  max-height: 330px;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 .ext-settings-container {

@@ -6,6 +6,7 @@ import aliLogo from '../../assets/1280px-Aliexpress_logo1.png';
 import puppySportLogo from '../../assets/puppy-sport-logo.png';
 import trustsellersLogo from '../../assets/trustsellers-logo.png';
 import bonusCoupon from '../../assets/bonus-coupon.png';
+import styles from './TabContents.module.css';
 
 const bonuses = [
   { logo: aliLogo, url: 'aliexpress.com', coupon: bonusCoupon, active: true, main: true, bonusText: 'Скидка на первую покупку после регистрации' },
@@ -21,11 +22,11 @@ const BonusesContent = () => {
   const { currentLangData } = useContext(AppContext);
 
     return (
-      <Container className='ext-bonuses-container'>
+      <Container className={styles.bonusesContainer}>
         <Grid stackable columns={2}>
           {bonuses.map((bonus, idx) => (
             <Grid.Column key={idx}>
-              <Segment secondary={!!bonus.main}>
+              <Segment secondary={!!bonus.main} className={styles.bonusesContainer__segment}>
                 <Container textAlign='center'>
                   <Image src={bonus.logo} fluid />
                   <a href={bonus.url}>{bonus.url}</a>

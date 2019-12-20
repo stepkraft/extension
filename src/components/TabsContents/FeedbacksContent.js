@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Container, Rating, Flag, Segment, Radio } from 'semantic-ui-react'
 import { get } from 'lodash'
 import AppContext from '../../services/AppContext';
+import styles from './TabContents.module.css';
 
 const currentCountry = 'Ukraine';
 const comments = [
@@ -19,13 +20,13 @@ const FeedbacksContent = () => {
   const [ useFilter, setFilter ] = useState(false);
 
     return (
-      <Container className='ext-feedbacks-container'>
-        <Segment className='ext-feedbacks-filter'>
+      <Container>
+        <Segment className={styles.feedbacksContainer__filter}>
           <span>{get(currentLangData, `feedbacks.filter-string`, '')}</span>
           <span><b>{currentCountry}</b></span>
           <Radio toggle checked={useFilter} onChange={(e, { checked }) => { setFilter(checked) }} />
         </Segment>
-        <div className='ext-feedbacks-list'>
+        <div className={styles.feedbacksContainer__list}>
           {comments.filter((c) => (!!useFilter ? c.country === 'ua' : true)).map((comment, idx) => (
             <Segment vertical key={idx}>
               <Container>

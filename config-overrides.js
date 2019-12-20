@@ -47,9 +47,9 @@ module.exports = {
           if (rule.oneOf instanceof Array) {
             rule.oneOf.map(r => {
               if (String(r.test) === String(/\.css$/)) {
-                const [firstLoader, ...otherLoaders] = r.use;
+                const [miniCssExtract, cssLoader, ...otherLoaders] = r.use;
                 r.use = [
-                  firstLoader,
+                  miniCssExtract,
                   {
                     loader: StringReplacePlugin.replace({
                       replacements: [{
@@ -64,6 +64,7 @@ module.exports = {
                       }]
                     })
                   },
+                  cssLoader,
                   ...otherLoaders
                 ];
               }

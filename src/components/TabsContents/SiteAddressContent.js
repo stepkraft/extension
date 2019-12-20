@@ -3,6 +3,7 @@ import { Container, Header, Button, Grid, Image, Divider } from 'semantic-ui-rea
 import { get } from 'lodash'
 import AppContext from '../../services/AppContext';
 import aliLogo from '../../assets/1280px-Aliexpress_logo1.png';
+import styles from './TabContents.module.css';
 
 
 const mainSites = [{
@@ -27,10 +28,10 @@ const otherSites = [
 
 const NoConnectionContent = ({currentLangData, setConnectionStatus}) => {
   return (
-    <div className='no-content-container'>
-      <div className='no-content-image' />
+    <div className={styles.noConnectionContainer}>
+      <div className={styles.noConnectionContainer__image} />
         <Header as='h3'>{get(currentLangData, `www.no-connection-header`, '')}</Header>
-        <p className='no-content-explanation'>{get(currentLangData, `www.no-connection-explanation`, '')}</p>
+        <p className={styles.noConnectionContainer__explanation}>{get(currentLangData, `www.no-connection-explanation`, '')}</p>
         <div>
           <Button color='green' onClick={() => setConnectionStatus(true)}>
             {get(currentLangData, `www.reftrsh-site`, '')}
@@ -40,20 +41,20 @@ const NoConnectionContent = ({currentLangData, setConnectionStatus}) => {
   );
 }
 
-const AddressesGrid = ({ currentLangData, sites, classNames = '' }) => {
+const AddressesGrid = ({ currentLangData, sites }) => {
   return (
-    <Grid columns={3} padded className={[].concat('ext-addresses-table', classNames).filter(Boolean).join(' ')}>
+    <Grid columns={3} padded>
       {sites.map((s, idx) => (
         <Grid.Row key={idx}>
           <Grid.Column width={4}>
             <Image src={s.imageUrl} fluid />
             <a href={s.url}>{s.url}</a>
           </Grid.Column>
-          <Grid.Column width={8} className='advertisment-column'>
-            <div className='coupon'>
-              {!!s.sale && <div className='sale' />}
+          <Grid.Column width={8} className={styles['addressesContainer__column--advertisment']}>
+            <div className={styles.addressesContainer__coupon}>
+              {!!s.sale && <div className={styles.addressesContainer__sale} />}
             </div>
-            <div className='advertisment-text'>{s.advertiseText}</div>
+            <div>{s.advertiseText}</div>
           </Grid.Column>
           <Grid.Column width={4}>
             <Button color='green'>
@@ -62,7 +63,7 @@ const AddressesGrid = ({ currentLangData, sites, classNames = '' }) => {
           </Grid.Column>  
         </Grid.Row>
       ))}
-    </Grid>    
+    </Grid>
   );
 }
 
@@ -72,9 +73,9 @@ const SiteAddressContent = () => {
   const content = !connectionStatus ? 
     <NoConnectionContent currentLangData={currentLangData} setConnectionStatus={setConnectionStatus} /> :
     <>
-      <AddressesGrid currentLangData={currentLangData} sites={mainSites} classNames='ext-addresses-main-table' />
+      <AddressesGrid currentLangData={currentLangData} sites={mainSites} />
       <Divider horizontal>{get(currentLangData, `www.other-shops-devider`, '')}</Divider>
-      <Container fluid className='ext-addresses-other-container'>
+      <Container fluid className={styles['addressesContainer--other']}>
         <AddressesGrid currentLangData={currentLangData} sites={otherSites} />
       </Container>
     </>

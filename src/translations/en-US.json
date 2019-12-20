@@ -24,7 +24,8 @@
         "color-scheme": {
             "label": "Theme",
             "light": "Light",
-            "dark": "Dark"
+            "dark": "Dark",
+            "or": "Or"
         }
     },
     "www": {

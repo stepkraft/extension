@@ -1,0 +1,80 @@
+/* bonuses page */
+.bonusesContainer {
+    padding: 1rem;
+    max-height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.bonusesContainer__segment {
+    height: 100%;
+}
+
+/* co connection screen */
+.noConnectionContainer {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    margin: 2rem auto;
+    width: 60%;
+}
+.noConnectionContainer__image {
+    height: 152px;
+    background-image: url(../../../src/assets/404-error.png);
+    background-position: center;
+    background-repeat: no-repeat;    
+}
+.noConnectionContainer__explanation {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;    
+}
+
+/* sites addresses page */
+.addressesContainer--other {
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.addressesContainer__column--advertisment {
+    display: flex !important;
+    align-items: stretch;
+    align-self: center;
+    justify-content: space-around;    
+}
+.addressesContainer__coupon {
+    background-image: url(../../../src/assets/coupon.png);
+    background-position: center;
+    background-repeat: no-repeat;
+
+    width: 25%;
+    position: relative;
+    margin-right: 1rem;
+    padding-right: 1rem;
+}
+.addressesContainer__sale {
+    background-image: url(../../../src/assets/sale.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1rem;
+    height: 1rem;
+    
+    position: absolute;
+    top: -0.2rem;
+    right: -0.2rem;
+}
+
+/* feedbacks */
+.feedbacksContainer__filter {
+    display: flex;
+    align-items: center;
+}
+.feedbacksContainer__filter > * {
+    padding-right: 0.5rem;
+}
+.feedbacksContainer__list {
+    margin: 0 0 0 1rem;
+    max-height: 330px;
+    overflow-x: hidden;
+    overflow-y: auto;    
+}
