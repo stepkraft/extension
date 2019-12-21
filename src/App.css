@@ -35,18 +35,6 @@
   font-size: 0.5em;
 }
 
-.popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 18px;
-  line-height: 21px;
-}
-
-.popup-header h3.ui.header {
-  margin: 1rem;
-}
-
 section {
   margin: 20px;
 }
@@ -102,15 +90,4 @@ section {
 .ext-modal-menu-button .connection-status {
   float: right;
   margin-top: 0.2rem;
-}
-
-.ui.container.ext-popup-content {
-  margin-left: -1rem !important;
-  overflow: hidden;
-  max-height: 25rem;
-  height: 100%;
-}
-
-.ext-settings-container {
-  padding: 1rem 1rem 0 1rem;
 }

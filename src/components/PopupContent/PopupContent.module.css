@@ -1,0 +1,25 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    line-height: 21px;    
+}
+
+.header__caption {
+    margin: 1rem;
+}
+
+.content {
+    /* margin-left: -1rem !important; */
+    overflow: hidden;
+    max-height: 25rem;
+    height: 100%;
+}
+
+/* .ui.container.ext-popup-content {
+    margin-left: -1rem !important;
+    overflow: hidden;
+    max-height: 25rem;
+    height: 100%;
+  } */

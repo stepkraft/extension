@@ -3,6 +3,7 @@ import { get } from 'lodash'
 import { func } from 'prop-types';
 import { Form, Container, Button, Divider, Dropdown, Icon } from 'semantic-ui-react';
 import AppContext from '../../services/AppContext';
+import styles from './Settings.module.css';
 
 const options = [
     { key: 'en', value: 'en-US' },
@@ -13,7 +14,7 @@ const Settings = ({save, ...props}) => {
     const { currentLangData } = useContext(AppContext);
 
     return (
-        <Container className='ext-settings-container'>
+        <Container className={styles.container}>
             <Form>
                 <Form.Field>
                     <label>{get(currentLangData, `settings.color-scheme.label`, '')}</label>   
