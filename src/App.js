@@ -1,19 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { get } from 'lodash';
-import { Button, Icon } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
 import './App.css';
 import styles from './Extension.module.css';
 import { ExtensionModal } from './components/ExtensionModal';
 import AppContext from './services/AppContext';
 import { useSettinngsStateWithLocalStorage } from './services';
-
-const buttons = [
-  { id: 'rating', icon: { name: 'star outline'}, disabled: true },
-  { id: 'address', icon: { name: 'linkify', color: 'yellow' } },
-  { id: 'bonuses', icon: { name: 'chess king', color: 'green'} },
-  { id: 'feedbacks', icon: { name: 'comment outline'} },
-  { id: 'prices', icon: { name: 'tag'} },
-];
+import openButton from './assets/lamp.svg'; 
 
 function App() {
   const [detailsOpened, showDetails] = useState(false);
@@ -36,16 +28,7 @@ function App() {
       ...(extSettings.verticalPosition === 'top' ? {top: 0} : {bottom: 0}),
       ...(extSettings.horizontalPosition === 'left' ? {left: 0} : {right: 0}),      
     }}>
-      <Button.Group>
-        {buttons/*.filter(({disabled}) => !disabled)*/.map(({ id, icon, disabled }) =>
-          <Button key={id} size='big' disabled={disabled} basic onClick={() => showDetails(true)}>
-            <div className={styles.button}>
-              {icon && <Icon color={icon.color || 'grey'} name={icon.name} className={styles.button__icon} />}
-              <span className={styles.button__span}>{get(currentLangData, `main.buttons.${id}`, '')}</span>
-            </div>
-          </Button>
-        )}
-      </Button.Group>
+      <Image src={openButton} size='tiny' onClick={() => showDetails(true)} />
       <ExtensionModal
         openState={detailsOpened}
         close={() => { showDetails(false) }}

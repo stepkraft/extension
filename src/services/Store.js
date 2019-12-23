@@ -5,7 +5,7 @@ const useSettinngsStateWithLocalStorage = () => {
     const savedData = JSON.parse(localStorage.getItem('ext-settings') || '{}');
     const {
         verticalPosition = 'top',
-        horizontalPosition = 'right',
+        horizontalPosition = 'left',
         language = 'en-US',
         theme = 'light'
     } = savedData;
