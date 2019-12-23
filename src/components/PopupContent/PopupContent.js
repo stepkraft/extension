@@ -7,11 +7,9 @@ const PopupContent = ({openSettings, closePopup, label, content}) => {
     return (
       <Container>
         <div className={styles.header}>
-          <Icon link name='setting' size='large' className='greyed' onClick={() => openSettings()} />
+          <Icon link name='setting' size='large' className={styles['button--greyed']} onClick={() => openSettings()} />
           <Header as='h3' className={styles.header__caption}>{label}</Header>
-          <div style={{paddingRight: '1em'}}>
-            <Icon link name='close' size='large' className='greyed' onClick={() => closePopup()} />
-          </div>
+          <Icon link name='close' size='large' className={styles['button--greyed']} onClick={() => closePopup()} />
         </div>
         <Divider fitted />
         <Container className={styles.content}>{content}</Container>

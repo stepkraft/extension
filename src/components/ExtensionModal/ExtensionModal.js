@@ -6,7 +6,7 @@ import AppContext from '../../services/AppContext';
 import { PopupContent, NoContentAvailable } from '../PopupContent';
 import Settings from '../Settings';
 import { SiteAddressContent, BonusesContent, FeedbacksContent, PricesContent } from '../TabsContents';
-// import styles from './ExtensionModal.module.css';
+import styles from './ExtensionModal.module.css';
 
 const buttons = [
     { id: 'rating', icon: { name: 'star outline'}, disabled: true },
@@ -29,24 +29,25 @@ const ExtensionModal = ({openState, close, extensionSettings, saveExtensionSetti
     return (
       <Modal open={openState} onClose={close}>
         <Grid>
-          <Grid.Column width={6} className="ext-modal-menu-column">
-            <Menu vertical tabular fluid>
+          <Grid.Column width={6}>
+            <Menu vertical tabular fluid className={styles.modalMenu}>
               {buttons.map(({ id, icon, disabled }) => <Menu.Item
                 key={id}
                 name={id}
                 disabled={disabled}
                 active={key === id}
                 onClick={handleItemClick}
+                className={`${styles.modalMenu__item} ${!!disabled ? styles['modalMenu__item--disabled'] : ''} ${key === id ? styles['modalMenu__item--active'] : ''}`}
               >
-                <div className='ext-modal-menu-button'>
-                  {icon && <Icon size='large' name={icon.name} />}
+                <div className={styles.modalMenu__button}>
+                  {icon && <Icon size='large' name={icon.name} className={styles.modalMenu__buttonIcon} />}
                   <span>{get(currentLangData, `main.buttons.${id}`, '')}</span>
-                  {'address' === id && <Icon size='small' name='circle thin' color={!!connectionStatus ? 'green': 'yellow'} className='connection-status' />}
+                  {'address' === id && <Icon size='small' name='circle thin' color={!!connectionStatus ? 'green': 'yellow'} className={styles.modalMenu__connStatus} />}
                 </div>
               </Menu.Item>)}
             </Menu>
           </Grid.Column>
-          <Grid.Column width={10} className="ext-modal-content-column row">
+          <Grid.Column width={10} className={`${styles.modalContent} row`}>
             <PopupContent
               openSettings={() => setShowSettings(true)}
               closePopup={() => { !!showSettings ? setShowSettings(false) : close()}}

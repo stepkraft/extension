@@ -3,23 +3,20 @@
     justify-content: space-between;
     align-items: center;
     font-size: 18px;
-    line-height: 21px;    
+    line-height: 21px;
+    margin: 0 1rem;
 }
 
 .header__caption {
-    margin: 1rem;
+    margin: 1rem !important;
 }
 
 .content {
-    /* margin-left: -1rem !important; */
     overflow: hidden;
     max-height: 25rem;
     height: 100%;
 }
 
-/* .ui.container.ext-popup-content {
-    margin-left: -1rem !important;
-    overflow: hidden;
-    max-height: 25rem;
-    height: 100%;
-  } */
+.button--greyed {
+    color: #BDBDBD;
+}
