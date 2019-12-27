@@ -5,12 +5,11 @@ import styles from './Extension.module.css';
 import { ExtensionModal } from './components/ExtensionModal';
 import AppContext from './services/AppContext';
 import { useSettinngsStateWithLocalStorage } from './services';
-import openButton from './assets/lamp.svg'; 
 
 function App() {
   const [detailsOpened, showDetails] = useState(false);
   const [extSettings, setExtSettings] = useSettinngsStateWithLocalStorage();
-  const { lang, switchLang, currentLangData } = useContext(AppContext);
+  const { lang, switchLang } = useContext(AppContext);
     
   const saveExtSettings = (obj) => {
     const toSave = {
@@ -28,7 +27,7 @@ function App() {
       ...(extSettings.verticalPosition === 'top' ? {top: 0} : {bottom: 0}),
       ...(extSettings.horizontalPosition === 'left' ? {left: 0} : {right: 0}),      
     }}>
-      <Image src={openButton} size='tiny' onClick={() => showDetails(true)} />
+      <Image size='tiny' className={styles.extensionStarter} onClick={() => showDetails(true)} /> 
       <ExtensionModal
         openState={detailsOpened}
         close={() => { showDetails(false) }}

@@ -61,6 +61,15 @@ module.exports = {
                           const font_updated = p1.replace(/url(?!\(data)\((.*?)\)/gi, `url(chrome-extension://__MSG_@@extension_id__$1)`);
                           return `@font-face{${font_updated}}`;
                         }
+                      }, {
+                        pattern: /background\s*:\s*url\((.*?)\)/ig,
+                        replacement: function(match, p1, offset, string) {
+                          if (env !== 'production' || p1.includes('chrome-extension://')) {
+                            return `background: url(${p1})`
+                          }
+                          const url_updated = `chrome-extension://__MSG_@@extension_id__${p1}`;
+                          return `background: url(${url_updated})`;
+                        }
                       }]
                     })
                   },
@@ -70,79 +79,10 @@ module.exports = {
               }
               return r;
             });
-            // rule.oneOf.push({
-            //   test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
-            //   loader: 'file-loader',
-            //   options: {
-            //     name: 'static/media/[name].[hash:8].[ext]',
-            //   }
-            // });
           }
+
           return rule;
         });
-
-      //   config.module.rules = config.module.rules.map(rule => {
-      //     if (rule.oneOf instanceof Array) {
-      //         return {
-      //             ...rule,
-      //             oneOf: [
-      //               {
-      //                 test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
-      //                 loader: 'file-loader',
-      //                 options: {
-      //                   name: 'static/media/[name].[hash:8].[ext]',
-      //                   // name: '[name].[hash:8].[ext]',
-      //                   // publicPath: 'static/media/',
-      //                   // postTransformPublicPath: (p) => {
-      //                   //   // console.log('postTransformPublicPath', p);
-      //                   //   if ('production' === env) {
-      //                   //     // __webpack_public_path__ = window.chrome.extension.getURL('')
-      //                   //     // return `__webpack_public_path__ + ${p}`;
-      //                   //     return `chrome-extension://__MSG_@@extension_id__/${p}`;
-      //                   //   }
-      //                   //   return p;
-      //                   // },
-      //                   // outputPath: (url) => {
-      //                   //   // console.log('outputPath', url);
-      //                   //   // console.log('env', env);
-      //                   //   // console.log('__webpack_public_path__', __webpack_public_path__)
-      //                   //   return `static/media/${url}`;
-      //                   // }
-      //                 }
-      //               },
-      //               // {
-      //               //   test: /static\/css\/contentScript\.css$/,
-      //               //   loader: 'string-replace-loader',
-      //               //   options: {
-      //               //     pattern: /\@font-face\{(.*?)\}/ig,
-      //               //     replacement: (match, p1, offset, string) => {
-      //               //       console.log('match p1', p1);
-      //               //       const font_updated = p1.replace(/url\((.*?)\)/gi, `url(chrome-extension://__MSG_@@extension_id__$1)`);
-      //               //       console.log('font_updated', font_updated);
-      //               //       return 'HUI';
-      //               //       // return `@font-face{${font_updated}}`;
-      //               //     },
-      //               //     flags: 'g'
-      //               //   }
-      //               // },
-      //                 ...rule.oneOf
-      //             ]
-      //         };
-      //     }
-  
-      //     return rule;
-      // });
-
-      // config.module.rules.forEach(r => {
-      //   // console.log('rule', r);
-      //   if (r.oneOf instanceof Array) {
-      //     r.oneOf.forEach(rule => {
-      //       // if (!!rule.test) {
-      //         console.log('rule', rule);
-      //       // }
-      //     });
-      //   }
-      // });
 
         config.plugins = config.plugins
             .filter(pl => !(pl instanceof MiniCssExtractPlugin))

@@ -27,3 +27,11 @@
   .button__span {
     font-size: 0.5em;
   }
+
+  .extensionStarter {
+    /* background: url(./assets/lamp.svg); */
+    background-image: url(./assets/lamp.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 80px !important;
+  }

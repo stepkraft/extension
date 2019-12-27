@@ -1,3 +1,8 @@
+.extensionModal {
+    margin: auto !important;
+    max-height: calc(500px - 2rem);
+}
+
 .modalMenu {
     background-color: #1565A4 !important;
     height: 100%;    

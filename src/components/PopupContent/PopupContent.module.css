@@ -1,3 +1,7 @@
+.container {
+    width: 100%;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -15,6 +19,7 @@
     overflow: hidden;
     max-height: 25rem;
     height: 100%;
+    width: 100%;
 }
 
 .button--greyed {

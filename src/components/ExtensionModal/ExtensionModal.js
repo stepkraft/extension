@@ -26,8 +26,15 @@ const ExtensionModal = ({openState, close, extensionSettings, saveExtensionSetti
       setShowSettings(false);
       setKey(name);
     };
+
+    const mountModal = (_, { dimmer }) => {
+      if (!!dimmer) {
+        document.getElementsByClassName('dimmer')[0].style.zIndex = 5000;
+      }      
+    }
+    
     return (
-      <Modal open={openState} onClose={close}>
+      <Modal open={openState} onClose={close} className={styles.extensionModal} onMount={mountModal}>
         <Grid>
           <Grid.Column width={6}>
             <Menu vertical tabular fluid className={styles.modalMenu}>

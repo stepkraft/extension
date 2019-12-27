@@ -43,7 +43,7 @@ const NoConnectionContent = ({currentLangData, setConnectionStatus}) => {
 
 const AddressesGrid = ({ currentLangData, sites }) => {
   return (
-    <Grid columns={3} padded>
+    <Grid padded>
       {sites.map((s, idx) => (
         <Grid.Row key={idx}>
           <Grid.Column width={4}>
