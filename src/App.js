@@ -10,7 +10,7 @@ function App() {
   const [detailsOpened, showDetails] = useState(false);
   const [extSettings, setExtSettings] = useSettinngsStateWithLocalStorage();
   const { lang, switchLang } = useContext(AppContext);
-    
+
   const saveExtSettings = (obj) => {
     const toSave = {
       ...extSettings,

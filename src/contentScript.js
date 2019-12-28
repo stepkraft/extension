@@ -1,5 +1,4 @@
 /*global chrome*/
-// __webpack_public_path__ = chrome.extension.getURL('');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
