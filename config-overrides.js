@@ -9,10 +9,13 @@ module.exports = {
         config.entry = {
           main: paths.appIndexJs,
           contentScript: `${paths.appSrc}/contentScript.js`,
+          backgroundScript: `${paths.appSrc}/backgroundScript.js`,
         };
 
         config.output.filename = (chunkData) => {
-          return chunkData.chunk.name === 'contentScript' ? 'static/js/[name].js' : 'static/js/[name].[hash:8].js';
+          return chunkData.chunk.name === 'contentScript' || chunkData.chunk.name === 'backgroundScript' ?
+            'static/js/[name].js' :
+            'static/js/[name].[hash:8].js';
         };
 
         config.optimization.runtimeChunk = false;
@@ -27,7 +30,7 @@ module.exports = {
             .concat([new HtmlWebpackPlugin({
               inject: true,
               template: paths.appHtml,
-              excludeChunks: ['contentScript'],
+              excludeChunks: ['contentScript', 'backgroundScript'],
               minify: {
                 removeComments: true,
                 collapseWhitespace: true,

@@ -8,7 +8,9 @@
   "version": "1.0",
   "manifest_version": 2,
   "permissions": [
-    "storage"
+    "storage",
+    "tabs",
+    "activeTab"
   ],
   "content_scripts" : [
     {
@@ -17,6 +19,10 @@
       "js": ["/static/js/contentScript.js"]
     }
   ],
+  "background": {
+    "scripts": [ "/static/js/backgroundScript.js" ],
+    "persistent": false
+  },
   "web_accessible_resources":[
     "/static/css/contentScript.css",
     "/static/media/*",

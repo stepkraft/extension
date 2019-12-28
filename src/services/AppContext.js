@@ -1,3 +1,4 @@
+/*global chrome*/
 import React, { useState, useLayoutEffect } from 'react';
 import { useSettinngsStateWithLocalStorage } from '../services';
 import translations  from '../translations';
@@ -6,11 +7,13 @@ const AppContext = React.createContext({
     lang: '',
     currentLangData: {},
     switchLang: () => { },
+    currentDomain: '',
 });
 
 export default AppContext;
 
 export function AppProvider(props) {
+    const [ currentDomain, setCurrentDomain ] = useState('');
     const [ extSettings ] = useSettinngsStateWithLocalStorage();
     const { language: currentLanguage } = extSettings;
     const [ lang, setLang ] = useState(currentLanguage);
@@ -24,6 +27,19 @@ export function AppProvider(props) {
             console.error('cannot fetch translations', e)
         }
     }
+
+    try {
+        chrome.runtime.onConnect.addListener((port) => {
+          port.onMessage.addListener(({name, payload: { tab }}) => {
+            if (name === 'extension-tabs' && !!tab && !!tab.url) {
+              var url = new URL(tab.url);
+              if (url.hostname !== currentDomain) {
+                setCurrentDomain(url.hostname);
+              }
+            }
+          });
+        });
+      } catch(er) { console.warn(er); }
 
     useLayoutEffect(() => {
         if (currentLanguage) {
@@ -44,6 +60,7 @@ export function AppProvider(props) {
             currentLangData,
             connectionStatus,
             setConnectionStatus,
+            currentDomain,
         }}>
             {props.children}
         </AppContext.Provider>
