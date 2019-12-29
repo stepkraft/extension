@@ -46,9 +46,9 @@ const AddressesGrid = ({ currentLangData, sites }) => {
     <Grid padded>
       {sites.map((s, idx) => (
         <Grid.Row key={idx}>
-          <Grid.Column width={4}>
+          <Grid.Column width={4} className={styles['addressesContainer__column--advertisment']}>
             <Image src={s.imageUrl} fluid />
-            <a href={s.url}>{s.url}</a>
+            {/* <a href={s.url}>{s.url}</a> */}
           </Grid.Column>
           <Grid.Column width={8} className={styles['addressesContainer__column--advertisment']}>
             <div className={styles.addressesContainer__coupon}>

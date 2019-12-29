@@ -11,9 +11,9 @@ import styles from './ExtensionModal.module.css';
 const buttons = [
     { id: 'rating', icon: { name: 'star outline'}, disabled: true },
     { id: 'address', icon: { name: 'linkify', color: 'yellow' }, content: <SiteAddressContent /> },
-    { id: 'bonuses', icon: { name: 'chess king', color: 'green'}, content: <BonusesContent /> },
-    { id: 'feedbacks', icon: { name: 'comment outline'}, content: <FeedbacksContent /> },
-    { id: 'prices', icon: { name: 'tag'}, content: <PricesContent /> },
+    { id: 'bonuses', icon: { name: 'chess king', color: 'green'}, disabled: true, content: <BonusesContent /> },
+    { id: 'feedbacks', icon: { name: 'comment outline'}, disabled: true, content: <FeedbacksContent /> },
+    { id: 'prices', icon: { name: 'tag'}, disabled: true, content: <PricesContent /> },
 ];
 
 const ExtensionModal = ({openState, close, extensionSettings, saveExtensionSettings }) => {
