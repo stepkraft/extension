@@ -26,14 +26,14 @@ const otherSites = [
 ];
 
 
-const NoConnectionContent = ({currentLangData, setConnectionStatus}) => {
+const NoConnectionContent = ({currentLangData, refetchSiteInfo}) => {
   return (
     <div className={styles.noConnectionContainer}>
       <div className={styles.noConnectionContainer__image} />
         <Header as='h3'>{get(currentLangData, `www.no-connection-header`, '')}</Header>
         <p className={styles.noConnectionContainer__explanation}>{get(currentLangData, `www.no-connection-explanation`, '')}</p>
         <div>
-          <Button color='green' onClick={() => setConnectionStatus(true)}>
+          <Button color='green' onClick={() => refetchSiteInfo()}>
             {get(currentLangData, `www.reftrsh-site`, '')}
           </Button>
         </div>
@@ -68,10 +68,10 @@ const AddressesGrid = ({ currentLangData, sites }) => {
 }
 
 const SiteAddressContent = () => {
-  const { currentLangData, connectionStatus, setConnectionStatus } = useContext(AppContext);
+  const { currentLangData, connectionStatus, refetchSiteInfo } = useContext(AppContext);
 
   const content = !connectionStatus ? 
-    <NoConnectionContent currentLangData={currentLangData} setConnectionStatus={setConnectionStatus} /> :
+    <NoConnectionContent currentLangData={currentLangData} refetchSiteInfo={refetchSiteInfo} /> :
     <>
       <AddressesGrid currentLangData={currentLangData} sites={mainSites} />
       <Divider horizontal>{get(currentLangData, `www.other-shops-devider`, '')}</Divider>

@@ -29,7 +29,7 @@ const ExtensionModal = ({openState, close, extensionSettings, saveExtensionSetti
 
     const mountModal = (_, { dimmer }) => {
       if (!!dimmer) {
-        document.getElementsByClassName('dimmer')[0].style.zIndex = 5000;
+        document.getElementsByClassName('dimmer')[0].style.zIndex = 10000;
       }      
     }
     
