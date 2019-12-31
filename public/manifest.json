@@ -1,16 +1,18 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
+  "short_name": "BK Zerkalo",
+  "name": "BK Zerkalo",
   "version": "1.0",
   "manifest_version": 2,
+  "icons": {
+    "16": "bkz.png",
+    "48": "bkz.png",
+    "128": "bkz.png"
+  },
   "permissions": [
     "storage",
     "tabs",
-    "activeTab"
+    "activeTab",
+    "*://api.stoklab.ru/*"
   ],
   "content_scripts" : [
     {

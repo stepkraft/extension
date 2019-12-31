@@ -2,29 +2,10 @@ import React, { useContext } from 'react';
 import { Container, Header, Button, Grid, Image, Divider } from 'semantic-ui-react';
 import { get } from 'lodash'
 import AppContext from '../../services/AppContext';
-import aliLogo from '../../assets/1280px-Aliexpress_logo1.png';
 import styles from './TabContents.module.css';
 
-
-const mainSites = [{
-  url: 'aliexpress.com',
-  imageUrl: aliLogo,
-  sale: true,
-  couponText: '2$',
-  advertiseText: 'Бонус на первую покупку после регистрации'
-}];
-
-const otherSites = [
-    { url: 'aliexpress.com', imageUrl: aliLogo, couponText: '2$', advertiseText: 'Бонус на первую покупку после регистрации'},
-    { url: 'www.site2.ru', imageUrl: aliLogo, couponText: '2$', advertiseText: 'Бонус на первую покупку после регистрации' },
-    { url: 'www.site2.ru', imageUrl: aliLogo, couponText: '2$', advertiseText: 'Бонус на первую покупку после регистрации' },
-    { url: 'www.site2.ru', imageUrl: aliLogo, couponText: '2$', advertiseText: 'Бонус на первую покупку после регистрации' },
-    { url: 'www.site2.ru', imageUrl: aliLogo, couponText: '2$', advertiseText: 'Бонус на первую покупку после регистрации' },
-    { url: 'www.site2.ru', imageUrl: aliLogo, couponText: '2$', advertiseText: 'Бонус на первую покупку после регистрации' },
-    { url: 'www.site2.ru', imageUrl: aliLogo, couponText: '2$', advertiseText: 'Бонус на первую покупку после регистрации' },
-    { url: 'www.site2.ru', imageUrl: aliLogo, couponText: '2$', advertiseText: 'Бонус на первую покупку после регистрации' },
-];
-
+// TODO: get rid of it
+const defaultLogo = 'https://v2l.ccdnss.com/genfiles/cms/pg/70/images/09ef1ad2e0b8613684c2d1cd91f4d3a6.svg';
 
 const NoConnectionContent = ({currentLangData, refetchSiteInfo}) => {
   return (
@@ -47,17 +28,17 @@ const AddressesGrid = ({ currentLangData, sites }) => {
       {sites.map((s, idx) => (
         <Grid.Row key={idx}>
           <Grid.Column width={4} className={styles['addressesContainer__column--advertisment']}>
-            <Image src={s.imageUrl} fluid />
+            <Image src={defaultLogo} fluid  />
             {/* <a href={s.url}>{s.url}</a> */}
           </Grid.Column>
           <Grid.Column width={8} className={styles['addressesContainer__column--advertisment']}>
             <div className={styles.addressesContainer__coupon}>
               {!!s.sale && <div className={styles.addressesContainer__sale} />}
             </div>
-            <div>{s.advertiseText}</div>
+            <div>{s.bonus}{!!s.promocode && <span>( {s.promocode} )</span>}</div>
           </Grid.Column>
           <Grid.Column width={4}>
-            <Button color='green'>
+            <Button color='green' onClick={() => { window.location.href=s.mirror }}> {/* disabled={!!s.blocked} */}
               {get(currentLangData, `www.go-to-site`, '')}
             </Button>
           </Grid.Column>  
@@ -68,16 +49,24 @@ const AddressesGrid = ({ currentLangData, sites }) => {
 }
 
 const SiteAddressContent = () => {
-  const { currentLangData, connectionStatus, refetchSiteInfo } = useContext(AppContext);
+  const { currentLangData, connectionStatus, refetchSiteInfo, sitesInfo } = useContext(AppContext);
+
+  const [mainSites, ...otherSites] = sitesInfo;
 
   const content = !connectionStatus ? 
     <NoConnectionContent currentLangData={currentLangData} refetchSiteInfo={refetchSiteInfo} /> :
     <>
-      <AddressesGrid currentLangData={currentLangData} sites={mainSites} />
-      <Divider horizontal>{get(currentLangData, `www.other-shops-devider`, '')}</Divider>
-      <Container fluid className={styles['addressesContainer--other']}>
-        <AddressesGrid currentLangData={currentLangData} sites={otherSites} />
-      </Container>
+      { !!mainSites && !!mainSites.found && 
+        <AddressesGrid currentLangData={currentLangData} sites={[mainSites]} />
+      }
+      { !!otherSites && !!otherSites.length && 
+        <>
+          <Divider horizontal>{get(currentLangData, `www.other-shops-devider`, '')}</Divider>
+          <Container fluid className={styles['addressesContainer--other']}>
+            <AddressesGrid currentLangData={currentLangData} sites={otherSites} />
+          </Container>
+        </>
+      }
     </>
     return (
       <>

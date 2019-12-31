@@ -7,13 +7,16 @@ import translations  from '../translations';
 
 // TODO: place to config
 const API_URL = '//api.stoklab.ru/';
+axios.defaults.headers.post['Accept'] = 'application/json';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 
 const AppContext = React.createContext({
     lang: '',
     currentLangData: {},
     switchLang: () => { },
     currentUrl: '',
-    siteInfo: null,
+    sitesInfo: [],
 });
 
 export default AppContext;
@@ -25,7 +28,7 @@ export function AppProvider(props) {
     const [ lang, setLang ] = useState(currentLanguage);
     const [ currentLangData, setCurrentLangData ] = useState({});
     const [ connectionStatus, setConnectionStatus ] = useState(false);
-    const [ siteInfo, setSiteInfo ] = useState(null);
+    const [ sitesInfo, setSitesInfo ] = useState([]);
 
     const fetchTranslation = async (lg) => {
         try {
@@ -36,17 +39,19 @@ export function AppProvider(props) {
     }
 
     try {
-        chrome.runtime.onConnect.addListener((port) => {
-          port.onMessage.addListener(({name, payload: { tab }}) => {
-            if (name === 'extension-tabs' && !!tab && !!tab.url && currentUrl !== tab.url) {
-              setCurrentUrl(tab.url);
-              fetchSiteInfo(tab.url);
-            //   var url = new URL(tab.url);
-            //   if (url.hostname !== currentDomain) {
-            //     setCurrentDomain(url.hostname);
-            //   }
-            }
-          });
+        chrome.runtime.onConnect.addListener((port) => {            
+          if (port.name === 'ext-communication') {
+            port.onMessage.addListener(({name, payload: { tab }}) => {
+                if (name === 'extension-tabs' && !!tab && !!tab.url && currentUrl !== tab.url) {
+                  setCurrentUrl(tab.url);
+                  fetchSiteInfo(tab.url);
+                //   var url = new URL(tab.url);
+                //   if (url.hostname !== currentDomain) {
+                //     setCurrentDomain(url.hostname);
+                //   }
+                }
+              });
+          }
         });
       } catch(er) { console.warn(er); }
 
@@ -65,21 +70,28 @@ export function AppProvider(props) {
 
     const fetchSiteInfo = (url) => {
         try  {
-            // console.log('trying do a POST request to %O with data %O', `${API_URL}?info_by_url`, { url });
-            axios.post(`${API_URL}?info_by_url`, { url })
+            axios.get(
+                API_URL,
+                {
+                    params: { info_by_url: '', url },
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type':'application/json'
+                    }
+                }
+            )
             .then((response) => {
-                console.log('response', response);
-                setSiteInfo(response.data);
+                setSitesInfo(response.data);
                 setConnectionStatus(true);
             })
             .catch((error) => {
-                console.error(error);
-                setSiteInfo(null);
+                // console.error(error);
+                setSitesInfo([]);
                 setConnectionStatus(false);
             });
         } catch(er) {
             console.warn(er);
-            setSiteInfo(null);
+            setSitesInfo([]);
             setConnectionStatus(false);
         }
     }
@@ -94,7 +106,7 @@ export function AppProvider(props) {
             switchLang,
             currentLangData,
             connectionStatus,
-            siteInfo,
+            sitesInfo,
             refetchSiteInfo,
         }}>
             {props.children}

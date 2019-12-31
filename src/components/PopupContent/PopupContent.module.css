@@ -24,4 +24,5 @@
 
 .button--greyed {
     color: #BDBDBD;
+    position: relative !important;
 }
