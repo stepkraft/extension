@@ -1,6 +1,15 @@
+:host, :root {
+    font-size: 16px;
+}
+
+.rootElement {
+    overflow: hidden;
+}
+
 .extensionModal {
     margin: auto !important;
-    max-height: calc(500px - 2rem);
+    max-height: calc(500px - 2em);
+    position: static !important;
 }
 
 .modalMenu {
@@ -40,10 +49,10 @@
 
 .modalMenu__connStatus {
     float: right;
-    margin-top: 0.2rem !important;
+    margin-top: 0.2em !important;
 }
 
 .modalContent {
     min-height: 500px;
-    margin-left: -1rem;
+    margin-left: -1em;
 }

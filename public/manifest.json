@@ -18,7 +18,8 @@
     {
       "matches": [ "<all_urls>" ],
       "css": ["/static/css/contentScript.css"],
-      "js": ["/static/js/contentScript.js"]
+      "js": ["/static/js/contentScript.js"],
+      "run_at": "document_end"
     }
   ],
   "background": {
